@@ -1,23 +1,34 @@
-unsigned int start_ms;
-unsigned int tip_count;
+
+unsigned int start_time;
+unsigned int num_tips;
+unsigned int start_tip_count;
+unsigned int current_tip_count;
+unsigned int num_tips;
+
 double rainfall_rate;
 
 void setup()
 {
   Serial.begin(9600);
   start_time = millis();
-  tip_count = 0;
+  num_tips = 0;
 }
 
 
 void loop()
 {
-	tip_count = get_tip_cout();
+	if tip_count == 0 {
+		start_tip_count = current_tip_count;
+		num_tips = 0;
+	}
+	else {
+		num_tips = current_tip_count - start_tip_count;
+	}
 	
 	if (millis() - start_time) > 60000 {
-		rainfall_rate = (double)(tip_count - start_tip_count) * 180.0 ;
+		rainfall_rate = (double)(num_tips) * 180.0 ;
 		start_time = millis();
-		tip_count = 0;
+		num_tips = 0;
 	}
 		
   
